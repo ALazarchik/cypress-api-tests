@@ -7,6 +7,10 @@ export default defineConfig({
         runMode: 2,
         openMode: 0
     },
+    reporter: 'cypress-multi-reporters',
+    reporterOptions: {
+        configFile: 'reporter-config.json',
+    },
     env: {
         email: '',
         password: '',
