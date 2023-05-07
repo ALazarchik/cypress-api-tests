@@ -37,18 +37,16 @@
 // }
 import { NEW_ARTICLE } from './constants';
 import { addArticlePage } from './pageObjects/addArticlePage';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
 Cypress.Commands.add('loginToApplication', () => {
     const loginRequestBody = {
         'user': {
-            'email': `${process.env.EMAIL}`,
-            'password': `${process.env.PASSWORD}`
+            'email': Cypress.env('email'),
+            'password': Cypress.env('password')
         }
     };
 
-    cy.request('POST', 'https://api.realworld.io/api/users/login', loginRequestBody).its('body').then(body => {
+    cy.request('POST', `${Cypress.env('apiBaseUrl')}/api/users/login`, loginRequestBody).its('body').then(body => {
         const token = body.user.token;
         cy.wrap(token).as('token');
         cy.visit('/', {
@@ -76,13 +74,13 @@ Cypress.Commands.add('addNewArticle', () => {
 Cypress.Commands.add('deleteAddedArticle', () => {
     cy.get('@token').then(token => {
         cy.request({
-            url: 'https://api.realworld.io/api/articles/',
+            url: `${Cypress.env('apiBaseUrl')}/api/articles/`,
             method: 'GET',
             headers: {'Authorization': `Token ${token}`}
         }).its('body').then(body => {
             if(body.articles[0].title === NEW_ARTICLE.TITLE) {
                 cy.request({
-                    url: `https://api.realworld.io/api/articles/${body.articles[0].slug}`,
+                    url: `${Cypress.env('apiBaseUrl')}/api/articles/${body.articles[0].slug}`,
                     method: 'DELETE',
                     headers: {'Authorization': `Token ${token}`}
                 }).then(response => {

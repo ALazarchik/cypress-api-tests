@@ -21,7 +21,7 @@ describe('Send API requests', () => {
         cy.get('@token').then(token => {
 
             cy.request({
-                url: 'https://api.realworld.io/api/articles/',
+                url: `${Cypress.env('apiBaseUrl')}/api/articles/`,
                 headers: {'Authorization': `Token ${token}`},
                 method: 'POST',
                 body: createArticleRequestBody
@@ -30,7 +30,7 @@ describe('Send API requests', () => {
             });
 
             cy.request({
-                url: 'https://api.realworld.io/api/articles/',
+                url: `${Cypress.env('apiBaseUrl')}/api/articles/`,
                 method: 'GET',
                 headers: {'Authorization': `Token ${token}`}
             }).its('body').then(body => {
@@ -42,7 +42,7 @@ describe('Send API requests', () => {
             cy.contains('Delete Article').click();
 
             cy.request({
-                url: 'https://api.realworld.io/api/articles/',
+                url: `${Cypress.env('apiBaseUrl')}/api/articles/`,
                 method: 'GET',
                 headers: {'Authorization': `Token ${token}`}
             }).its('body').then(body => {

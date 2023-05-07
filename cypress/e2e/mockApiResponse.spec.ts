@@ -11,7 +11,7 @@ describe('Mock API responses', () => {
     });
 
     it('verify correct request and response', () => {
-        cy.intercept('POST', 'https://api.realworld.io/api/articles/', (req) => {
+        cy.intercept('POST', `${Cypress.env('apiBaseUrl')}/api/articles/`, (req) => {
             req.body.article.description = `${NEW_ARTICLE.DESCRIPTION} 2`;
         }).as('postNewArticle');
 
@@ -31,8 +31,8 @@ describe('Mock API responses', () => {
     });
 
     it('verify global feed likes count', () => {
-        cy.intercept('GET', 'https://api.realworld.io/api/articles/feed*', { "articles":[],"articlesCount":0 });
-        cy.intercept('GET', 'https://api.realworld.io/api/articles*', { fixture: 'articles.json' });
+        cy.intercept('GET', `${Cypress.env('apiBaseUrl')}/api/articles/feed*`, { "articles":[],"articlesCount":0 });
+        cy.intercept('GET', `${Cypress.env('apiBaseUrl')}/api/articles*`, { fixture: 'articles.json' });
 
         cy.contains('Global Feed').click();
         cy.wait(5000);
@@ -44,7 +44,7 @@ describe('Mock API responses', () => {
         cy.fixture('articles').then(file => {
             const articleLink = file.articles[1].slug;
             file.articles[1].favoritesCount = 6;
-            cy.intercept('POST', `https://api.realworld.io/api/articles/${articleLink}/favorite`, file);
+            cy.intercept('POST', `${Cypress.env('apiBaseUrl')}/api/articles/${articleLink}/favorite`, file);
         });
 
         cy.get('app-article-list button').eq(1).click().should('contain', '6');
