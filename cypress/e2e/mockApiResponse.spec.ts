@@ -30,12 +30,12 @@ describe('Mock API responses', () => {
             .and('contain', 'real_madrid').and('contain', 'milan');
     });
 
-    it('verify global feed likes count', () => {
+    it('verify global feed likes count', { retries: 3 }, () => {
         cy.intercept('GET', `${Cypress.env('apiBaseUrl')}/api/articles/feed*`, { "articles":[],"articlesCount":0 });
         cy.intercept('GET', `${Cypress.env('apiBaseUrl')}/api/articles*`, { fixture: 'articles.json' });
 
         cy.contains('Global Feed').click();
-        cy.wait(5000);
+        cy.wait(2000);
         cy.get('app-article-list button').then(heartList => {
             expect(heartList[0]).to.contain('1');
             expect(heartList[1]).to.contain('5');

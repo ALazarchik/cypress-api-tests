@@ -39,7 +39,7 @@ import { NEW_ARTICLE } from './constants';
 import { addArticlePage } from './pageObjects/addArticlePage';
 
 Cypress.Commands.add('loginToApplication', () => {
-    const loginRequestBody = {
+    const loginRequestBody = {          // headless login
         'user': {
             'email': Cypress.env('email'),
             'password': Cypress.env('password')
@@ -57,7 +57,7 @@ Cypress.Commands.add('loginToApplication', () => {
     });
 
 
-    // cy.visit('/login');
+    // cy.visit('/login');          // login through UI
     // cy.get('[placeholder="Email"]').clear().type(`${process.env.EMAIL}`);
     // cy.get('[placeholder="Password"]').clear().type(`${process.env.PASSWORD}`);
     // cy.get('form').submit();

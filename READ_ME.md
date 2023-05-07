@@ -12,4 +12,4 @@ In order to run tests you should:
 
 OR
 
-5.1 Run tests in headless mode by passing "npx cypress run" or "npm run run" commands in the Terminal
+5. Run tests in headless mode by passing "npx cypress run" or "npm run run" commands in the Terminal
