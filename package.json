@@ -1,0 +1,16 @@
+{
+    "name": "cypress-api-tests",
+    "description": "API tests with Cypress",
+    "scripts": {
+        "open": "npx cypress open",
+        "run": "npx cypress run"
+    },
+    "author": "Andrei Lazarchik",
+    "devDependencies": {
+        "@types/node": "^18.16.3",
+        "cypress": "^12.11.0",
+        "dotenv": "^16.0.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.0.4"
+    }
+}
